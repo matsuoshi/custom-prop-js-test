@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>custom property sample</title>
+<style>
+:root {
+  --custom-color: #ddd;
+}
+#box1, #box2 {
+  background-color: var(--custom-color);
+}
+
+.box {
+  width: 300px;
+  height: 200px;
+  margin-bottom: 20px;
+}
+#box1:hover {
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+<div id="box1" class="box">box1</div>
+<div id="box2" class="box">box2</div>
+
+
+<script>
+const box1 = document.getElementById('box1');
+const box2 = document.getElementById('box2');
+
+// #box1 の背景色を、一定間隔でランダムに変える
+setInterval(() => {
+  const color = Math.round((Math.random() * 0x1000));
+  box1.style.setProperty('--custom-color', `#${color.toString(16)}`);
+}, 1000);
+
+// #box1 をタップすると、現在の #box1 の 背景色を #box2 に設定
+box1.onclick = () => {
+  const val = getComputedStyle(box1).getPropertyValue('--custom-color');
+  box2.style.setProperty('--custom-color', `${val}`);
+};
+</script>
+</body>
+</html>
